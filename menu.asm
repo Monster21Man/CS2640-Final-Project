@@ -44,7 +44,10 @@ invalidInput: .asciiz "\nError! Invalid coordinate input. Please choose a number
 
 buffer: .space 20
 
-
+#creating the bitmap - referencing code from lecture
+.space 256
+.eqv BLUE 0x189BBC
+.eqv GREEN 0xbecc41
 
 .text
 main: 
@@ -58,6 +61,38 @@ main:
 	#2 - game has ended, begin outputing result
 	li $t0, 0
 
+createBitmap:
+	la $t9, 0x10010000 #160
+	move $s0, $zero #counter for "rows"
+	move $s1, $zero #counter for "pixels"
+	#load and set color
+	li $t1, BLUE
+	li $t2, GREEN
+
+#note, at every 16, switch colors
+color1:
+	add $s2, $s2, 1
+	beq $s0, 16, color2
+	sw $t8, 0($t9)
+	add $t0, $t0, 4
+	#beq $s0, 256, exit
+	sw $t7, 0($t9)
+	add $t0, $t0, 4
+	add $s0, $s0, 1
+	beq $s1, 256, Input
+	b color1
+
+color2:
+	add $s2, $s2, 1
+	beq $s0, 16, color1
+	sw $t8, 0($t9)
+	add $t0, $t0, 4
+	#beq $s0, 256, exit
+	sw $t7, 0($t9)
+	add $t0, $t0, 4
+	add $s0, $s0, 1
+	beq $s1, 256, Input
+	b color2
 
 Input:
 	li $v0, 12

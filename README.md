@@ -117,8 +117,8 @@ Before running the game, you need to set up the Bitmap Display:
 
 **CS2640.02 - Group 5**
 - Logan Bailey - Bitmap display implementation
-- Marco Joson - Game logic and structure
-- Russell Salvador - Win condition checking
+- Marco Joson - Win condition checking
+- Russell Salvador - Game logic and structure
 - Jay Wu - Input validation and error handling
 
 ## Project Details
